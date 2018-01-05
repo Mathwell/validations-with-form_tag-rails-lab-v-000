@@ -1,4 +1,4 @@
-<%= form_tag("/authors") do %>
+<%= form_tag authors_path, method "post"  do %>
   <% if @author.errors.any? %>
     <div id="error_explanation">
       <h2>There were some errors:</h2>
@@ -11,11 +11,16 @@
   <% end %>
 
 <h2>Create an Author</h2>
-<%= form_tag authors_path, method: "post" do %>
-  <div class="field">
+
+<% if @author.errors[:name].empty? %>
+    <div class="field">
+  <% else %>
+    <div class="field_with_errors">
+  <% end %>
     <%= label_tag "name", "Name" %>
-    <%= text_field_tag "name" %>
+    <%= text_field_tag "name", @author.name %>
   </div>
+
 
   <div class="field">
     <%= label_tag "email", "Email" %>
